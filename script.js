@@ -1,3 +1,4 @@
+
 // ===============================
 // Mobile Menu Toggle
 // ===============================
@@ -87,15 +88,10 @@ counters.forEach(counter => {
         const increment = Math.ceil(target / 100);
 
         if (current < target) {
-
             counter.innerText = Math.min(current + increment, target);
-
             setTimeout(updateCounter, 20);
-
         } else {
-
             counter.innerText = target;
-
         }
 
     };
@@ -154,7 +150,7 @@ function showCourse(course) {
         info.innerHTML = `
             <h3>Civil Engineering</h3>
             <p><strong>Duration:</strong> 3 Years</p>
-            <p>Civil Engineering deals with planning, designing and construction of roads, bridges, buildings and infrastructure projects.</p>
+            <p>Civil Engineering deals with planning, designing and construction of infrastructure like roads, bridges, buildings and dams.</p>
             <p><strong>Careers:</strong> Site Engineer, Structural Engineer, Surveyor, Project Manager.</p>
         `;
 
@@ -195,11 +191,7 @@ window.addEventListener("scroll", () => {
 
     if (!topBtn) return;
 
-    if (window.scrollY > 400) {
-        topBtn.style.display = "flex";
-    } else {
-        topBtn.style.display = "none";
-    }
+    topBtn.style.display = window.scrollY > 400 ? "flex" : "none";
 
 });
 
@@ -215,3 +207,66 @@ if (topBtn) {
     });
 
 }
+
+
+// ===============================
+// GOVERNING BODY (Google Sheet)
+// ===============================
+
+const sheetID = "1U0z9n7hqQrAQtLBbMYaW78s3fxe3_7iUlGBgK6DRHfA";
+
+fetch(`https://opensheet.elk.sh/${sheetID}/GoverningBody`)
+    .then(res => res.json())
+    .then(data => {
+
+        const tbody = document.querySelector("#governingTable tbody");
+        if (!tbody) return;
+
+        tbody.innerHTML = "";
+
+        data.forEach(row => {
+
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>${row["Sr No"]}</td>
+                <td>${row["Name"]}</td>
+                <td>${row["Member Category"]}</td>
+                <td>${row["Position in EOC"]}</td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+    })
+    .catch(error => console.error("Error loading Governing Body:", error));
+
+
+// ===============================
+// GRIEVANCE TABLE (Google Sheet)
+// ===============================
+
+fetch(`https://opensheet.elk.sh/${sheetID}/Grievance`)
+    .then(res => res.json())
+    .then(data => {
+
+        const tbody = document.querySelector("#grievanceTable tbody");
+        if (!tbody) return;
+
+        tbody.innerHTML = "";
+
+        data.forEach(row => {
+
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>${row["Sr No"]}</td>
+                <td>${row["Name"]}</td>
+                <td>${row["Position In EOC"]}</td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+    })
+    .catch(error => console.error("Error loading Grievance Table:", error));
