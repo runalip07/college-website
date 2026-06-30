@@ -1,4 +1,4 @@
-
+console.log("Script Loaded");
 // ===============================
 // Mobile Menu Toggle
 // ===============================
@@ -209,64 +209,65 @@ if (topBtn) {
 }
 
 
+
 // ===============================
-// GOVERNING BODY (Google Sheet)
+// Governing Body Cell
 // ===============================
 
-const sheetID = "1U0z9n7hqQrAQtLBbMYaW78s3fxe3_7iUlGBgK6DRHfA";
+const governingSheetID = "1U0z9n7hqQrAQtLBbMYaW78s3fxe3_7iUlGBgK6DRHfA";
 
-fetch(`https://opensheet.elk.sh/${sheetID}/GoverningBody`)
-    .then(res => res.json())
+fetch(`https://opensheet.elk.sh/${governingSheetID}/Governing Body Cell`)
+    .then(response => response.json())
     .then(data => {
 
-        const tbody = document.querySelector("#governingTable tbody");
+        const tbody = document.getElementById("governingTableBody");
+
         if (!tbody) return;
 
         tbody.innerHTML = "";
 
         data.forEach(row => {
 
-            const tr = document.createElement("tr");
-
-            tr.innerHTML = `
-                <td>${row["Sr No"]}</td>
-                <td>${row["Name"]}</td>
-                <td>${row["Member Category"]}</td>
-                <td>${row["Position in EOC"]}</td>
+            tbody.innerHTML += `
+                <tr>
+                    <td>${row["Sr No"]}</td>
+                    <td>${row["Name"]}</td>
+                    <td>${row["Member Category"]}</td>
+                    <td>${row["Position in EOC"]}</td>
+                </tr>
             `;
-
-            tbody.appendChild(tr);
         });
 
     })
-    .catch(error => console.error("Error loading Governing Body:", error));
+    .catch(error => console.error("Governing Body Error:", error));
 
 
 // ===============================
-// GRIEVANCE TABLE (Google Sheet)
+// Grievance Redressal Cell
 // ===============================
 
-fetch(`https://opensheet.elk.sh/${sheetID}/Grievance`)
-    .then(res => res.json())
+const grievanceSheetID = "1wIhxzUMo8c9Dav-thMeBrnwyf63jEr0QzliNVX4-fDM";
+
+fetch(`https://opensheet.elk.sh/${grievanceSheetID}/1`)
+    .then(response => response.json())
     .then(data => {
 
-        const tbody = document.querySelector("#grievanceTable tbody");
+        const tbody = document.getElementById("grievanceTableBody");
+
         if (!tbody) return;
 
         tbody.innerHTML = "";
 
         data.forEach(row => {
 
-            const tr = document.createElement("tr");
-
-            tr.innerHTML = `
-                <td>${row["Sr No"]}</td>
-                <td>${row["Name"]}</td>
-                <td>${row["Position In EOC"]}</td>
+            tbody.innerHTML += `
+                <tr>
+                    <td>${row["Sr No"]}</td>
+                    <td>${row["Name"]}</td>
+                    <td>${row["Position In EOC"]}</td>
+                </tr>
             `;
-
-            tbody.appendChild(tr);
         });
 
     })
-    .catch(error => console.error("Error loading Grievance Table:", error));
+    .catch(error => console.error("Grievance Error:", error));
